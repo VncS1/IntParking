@@ -52,14 +52,10 @@ int main(){
 
     criarListaVagas(&vagas);
 
+    //Preenchendo as vagas como não ocupadas
     for (int i = 1; i < 11; i++){
         ocuparVagas(&vagas, 0, i, "00/00/0000", "00:00:00");
     }
-
-//    struct nodeVaga * aux = vagas.inicio;
-//    while (aux) {
-//        printf("%d %d %s %s %lx\n", aux->ocup, aux->numVaga, aux->dataSistema, aux->horaEntrada, (long int)aux->prox);
-//    }
 
     do{
         printf("\n\n** MENU OPCOES **");
@@ -71,9 +67,8 @@ int main(){
         printf("\n\nDigite a sua opcao: ");
 
         scanf("%d", &opcaoMenu);
-        fflush(stdin);
 
-        printf("Opcao: %d", opcaoMenu);
+
 
         switch (opcaoMenu){
             
@@ -220,7 +215,6 @@ void mostrarVagas(Vagas vagas){
     if (vagas.inicio == NULL){
         printf("Lista vazia...\n\n");
     }else{
-        //printf("\n1\n");
 
         aux = vagas.inicio;
         int contador = 0;
@@ -265,14 +259,8 @@ void mostrarVagas(Vagas vagas){
             
             contador++;
 
-            // if(aux == NULL) {
-            //     printf("Final");
-            // }
-
         } while (aux != NULL);
 
-        // printf("\n\n");
-        // printf("\n1\n");
     }
 }
 
@@ -300,12 +288,15 @@ void usarVagas(Vagas vagas, int valor){
                 printf("Data: %s\n", aux -> dataSistema);
                 printf("Entrou: %s\n", aux -> horaEntrada);
 
-break;
+                break;
+
             }else if (aux->numVaga == valor && aux->ocup == 1){
                   valor = entrarCarro();
                 aux = vagas.inicio;
               
-            } else aux = aux->prox;
+            } else {
+                aux = aux->prox;
+            }
 
 
         } while (aux != NULL);
@@ -319,7 +310,6 @@ void liberarVagas(Vagas vagas, int valor){
         printf("Lista vazia...\n\n");
     }else{
 
-        // printf("\n\n%d", valor);
         aux = vagas.inicio;
 
         if (contadorVagas == 0){
@@ -340,11 +330,14 @@ void liberarVagas(Vagas vagas, int valor){
                 aux->ocup = 0;
 
                 break;
+
             }else if (aux->numVaga == valor && aux->ocup == 0){
                 valor = entrarCarro();
                 aux = vagas.inicio;
               
-            } else aux = aux->prox;
+            } else {
+                aux = aux->prox;
+            }
 
         } while (aux != NULL);
     }
